@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+        <title>SeftComp Manager System</title>
+        <!-- Google icon -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Bootstrap css -->
+        <link rel="stylesheet" type="text/css" href="static/assets/css/bootstrap.min.css">
+        <!-- Propeller css -->
+        <!-- build:[href] assets/css/ -->
+        <link rel="stylesheet" type="text/css" href="static/assets/css/propeller.min.css">
+        <!-- /build -->
+        <!-- Propeller theme css-->
+        <link rel="stylesheet" type="text/css" href="static/themes/css/propeller-theme.css" />
+        <!-- Propeller admin theme css-->
+        <link rel="stylesheet" type="text/css" href="static/themes/css/propeller-admin.css">
+    </head>
+
+    <body>
+        <!-- Header Starts -->
+        <!--Start Nav bar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
+
+            <div class="container-fluid">
+                <div class="pmd-navbar-right-icon pull-right navigation"></div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left pmd-sidebar-toggle" style="margin-right:0 "><i class="material-icons">dvr</i></a>
+                    <a href="/" class="navbar-brand">
+                        <h1 style="margin-top: 10px; color:white">SofComp</h1>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!--End Nav bar -->
+        <!-- Header Ends -->
+
+        <!-- Sidebar Starts -->
+        <div class="pmd-sidebar-overlay"></div>
+
+        <!-- Left sidebar -->
+        <aside class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons" role="navigation">
+            <ul class="nav pmd-sidebar-nav">
+
+                <li>
+                    <a class="pmd-ripple-effect" href="projects">
+                        <i class="material-icons media-left pmd-sm">folder</i>
+                        <span class="media-body">Projects</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="pmd-ripple-effect" href="engineers">
+                        <i class="material-icons media-left pmd-sm">people</i>
+                        <span class="media-body">Engineers</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="pmd-ripple-effect active" href="expertise">
+                        <i class="material-icons media-left pmd-sm">school</i>
+                        <span class="media-body">Expertise</span>
+                    </a>
+                </li>
+
+            </ul>
+        </aside><!-- End Left sidebar -->
+        <!-- Sidebar Ends -->
+
+        <!--content area start-->
+        <div id="content" class="pmd-content content-area dashboard">
+            <div class="container-fluid">
+                <div class="row" id="card-masonry">
+                    <h1>Expertise</h1>
+                    <div class="table-responsive pmd-card pmd-z-depth">
+                        <table class="table table-mc-red pmd-table">
+                            <thead>
+                            <tr>
+                                <th>Expertise</th>
+                                <th>Expertise id</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                           {% for row in data %}
+                                <tr>
+                                    {% for d in row %}
+                                    <td>{{ d }}</td>
+                                    {% endfor %}
+                                     <td class="pmd-table-row-action">
+                                        <a href="javascript:void(0);" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm">
+                                            <i class="material-icons md-dark pmd-sm">edit</i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm">
+                                            <i class="material-icons md-dark pmd-sm">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-info" style="float: right" type="button"><i class="material-icons pmd-sm">add</i></button>			</div>
+        </div>
+    </body>
+</html>

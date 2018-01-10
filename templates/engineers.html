@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+        <title>SeftComp Manager System</title>
+        <!-- Google icon -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Bootstrap css -->
+        <link rel="stylesheet" type="text/css" href="static/assets/css/bootstrap.min.css">
+        <!-- Propeller css -->
+        <!-- build:[href] assets/css/ -->
+        <link rel="stylesheet" type="text/css" href="static/assets/css/propeller.min.css">
+        <!-- /build -->
+        <!-- Propeller theme css-->
+        <link rel="stylesheet" type="text/css" href="static/themes/css/propeller-theme.css" />
+        <!-- Propeller admin theme css-->
+        <link rel="stylesheet" type="text/css" href="static/themes/css/propeller-admin.css">
+        <script  src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+        <script src="static/assets/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <!-- Header Starts -->
+        <!--Start Nav bar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
+
+            <div class="container-fluid">
+                <div class="pmd-navbar-right-icon pull-right navigation"></div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left pmd-sidebar-toggle" style="margin-right:0 "><i class="material-icons">dvr</i></a>
+                    <a href="/" class="navbar-brand">
+                        <h1 style="margin-top: 10px; color:white">SofComp</h1>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!--End Nav bar -->
+        <!-- Header Ends -->
+
+        <!-- Sidebar Starts -->
+        <div class="pmd-sidebar-overlay"></div>
+
+        <!-- Left sidebar -->
+        <aside class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons" role="navigation">
+            <ul class="nav pmd-sidebar-nav">
+
+                <li>
+                    <a class="pmd-ripple-effect" href="projects">
+                        <i class="material-icons media-left pmd-sm">folder</i>
+                        <span class="media-body">Projects</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="pmd-ripple-effect active" href="engineers">
+                        <i class="material-icons media-left pmd-sm">people</i>
+                        <span class="media-body">Engineers</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="pmd-ripple-effect" href="expertise">
+                        <i class="material-icons media-left pmd-sm">school</i>
+                        <span class="media-body">Expertise</span>
+                    </a>
+                </li>
+
+            </ul>
+        </aside><!-- End Left sidebar -->
+        <!-- Sidebar Ends -->
+
+        <!--content area start-->
+        <div id="content" class="pmd-content content-area dashboard">
+            <div class="container-fluid">
+                <div class="row" id="card-masonry">
+                    <h1>Engineers</h1>
+                    <div class="table-responsive pmd-card pmd-z-depth">
+                        <table id="engineer-table" class="table table-mc-red pmd-table">
+                            <thead>
+                            <tr>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Id</th>
+                                <th>Field id</th>
+                                <th>Address</th>
+                                <th>Birthday</th>
+                                <th>Age</th>
+                                <th>Phone Number</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in data %}
+                                {% set rowloop = loop %}
+                                <tr id="{{loop.index}}">
+                                    {% for d in row %}
+                                    <td id="{{rowloop.index}}-{{loop.index}}">{{ d }}</td>
+                                    {% endfor %}
+                                    <td>
+                                        <a id="phone-{{loop.index}}" data-toggle="modal" data-target="#phone-modal" style="margin-left:21px;" onclick="showPhones('{{rowloop.index}}-3')" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm">
+                                            <i class="material-icons md-dark pmd-sm">phone</i>
+                                        </a>
+                                    </td>
+                                    <td class="pmd-table-row-action">
+                                        <a id="edit-{{loop.index}}" href="javascript:void(0);" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm">
+                                            <i class="material-icons md-dark pmd-sm">edit</i>
+                                        </a>
+                                        <a id="delete-{{loop.index}}" onclick="deleteEngineer('{{rowloop.index}}-3')" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm">
+                                            <i class="material-icons md-dark pmd-sm">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button class="btn pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-info" style="float: right" id="add-engineer" type="button"><i class="material-icons pmd-sm">add</i></button>
+                        <!-- Trigger the modal with a button -->
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add phone number</h4>
+              </div>
+              <div class="modal-body">
+                  <form id="add-phone-form" action="">
+                      <ul style="list-style-type: none;" id="phone-list">
+                          <li>
+                              <label>
+                                  Phone number: <input class="new-phone-number" type="tel">
+                                  <a onclick="addAnotherPhone()" style="margin: -6px 0 0 11px;" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm">
+                                    <i class="material-icons md-dark pmd-sm">add</i>
+                                  </a>
+                              </label>
+                          </li>
+                      </ul>
+
+                  </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="getPhones()" data-dismiss="modal">Done</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+            </div>
+        </div>
+         <!-- show phones Modal -->
+        <div id="phone-modal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- show phones Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Phone numbers</h4>
+              </div>
+              <div class="modal-body">
+                  <form id="show-phone-form" action="">
+                      <ul style="list-style-type: none; padding-left:0;" id="show-phone-list">
+                      </ul>
+                  </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="getPhones()" data-dismiss="modal">Done</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+            </div>
+        </div>
+
+        <script src="static/assets/js/engineers.js"></script>
+    </body>
+</html>
